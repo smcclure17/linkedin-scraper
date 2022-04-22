@@ -9,7 +9,7 @@ Simple, pseudo-generic tooling for extracting user Info from LinkedIn profiles, 
 
 - If necessary, download and install [Anaconda](https://docs.anaconda.com/anaconda/install/index.html), a Python environment handler. 
 
-- Create an environment (I'll call mine rugby-alumni for this example),
+- Create an environment (I'll call mine `rugby-alumni` for this example),
 
     ```
     conda create -n rugby-alumni python=3.9
@@ -39,6 +39,8 @@ Simple, pseudo-generic tooling for extracting user Info from LinkedIn profiles, 
     from gsheet.google_sheet_helpers import init_service_account
     init_service_account()
     ```
+    
+    NOTE: I really don't like this method, and we should find a way to use a standard env variable so we can maybe use Github actions or something. 
 
 ## Usage
 
