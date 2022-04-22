@@ -1,0 +1,8 @@
+pandas
+dataclasses
+typing
+ipython
+requests
+gspread
+black
+invoke
