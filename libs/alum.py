@@ -24,6 +24,8 @@ class Alum:
     url: str
     # TODO: find a good request to grab graduation year from.
 
+    # TODO: THIS IS ONLY SUCCESSFUL IF I'M (sean) CONNECTED TO THE PERSON which is a big issue. 
+    # This also means it's using my info to make these requests--we should try to make this anonymous
     @classmethod
     def from_id(self, id: str) -> "Alum":
         # I envisioned these being class properties but dataclasses asdict()
