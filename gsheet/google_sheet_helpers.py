@@ -4,7 +4,7 @@ import pandas as pd
 GOOGLE_SHEET_ID = "1L4G0mM_iti_H5burWq22g4v4jMZW-4LhX8BvnH5o_WI"
 
 
-def init_service_account():
+def init_service_account() -> gspread.Client:
     # Using service account key, see
     # https://docs.gspread.org/en/latest/oauth2.html#for-bots-using-service-account
     return gspread.service_account()
@@ -12,7 +12,7 @@ def init_service_account():
 
 def update_sheet(
     data: pd.DataFrame, worksheet_name: str, spreadsheet_id: str = GOOGLE_SHEET_ID
-):
+) -> None:
     gsheet_engine = init_service_account()
     spreadsheet = gsheet_engine.open_by_key(spreadsheet_id)
 

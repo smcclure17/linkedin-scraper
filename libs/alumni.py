@@ -15,12 +15,12 @@ class Alumni:
     alumni: List[Alum]
 
     @classmethod
-    def from_urls_list(self, urls: List[str] = ALUMNI_URLS):
+    def from_urls_list(self, urls: List[str] = ALUMNI_URLS) -> "Alumni":
         alumni = [Alum.from_url(url) for url in urls]
         return Alumni(alumni=alumni)
 
     @classmethod
-    def from_urls_csv(self, file_path: str):
+    def from_urls_csv(self, file_path: str) -> "Alumni":
         """Update spreadsheet from a csv of urls.
 
         Csv must be one-column, newline seperated, and headerless like:
@@ -33,11 +33,11 @@ class Alumni:
         return Alumni.from_urls_list(urls=urls)
 
     @cached_property
-    def alumni_dataset(self):
+    def alumni_dataset(self) -> pd.DataFrame:
         alumni_dicts = [dataclasses.asdict(alum) for alum in self.alumni]
         return pd.DataFrame.from_records(alumni_dicts)
 
-    def post_to_google_sheet(self):
+    def post_to_google_sheet(self) -> None:
         google_sheet_helpers.update_sheet(
             data=self.alumni_dataset, worksheet_name="Alumni"
         )
