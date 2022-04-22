@@ -11,19 +11,19 @@ Simple, pseudo-generic tooling for extracting user Info from LinkedIn profiles, 
 
 - Create an environment (I'll call mine `rugby-alumni` for this example),
 
-    ```
+    ```bash
     conda create -n rugby-alumni python=3.9
     ```
 
 - Say yes to anything it asks you, then activate your environment,
 
-    ```
+    ```bash
     conda activate rugby-alumni
     ```
 
 - Run the makefile to install the necessary dependencies, 
 
-    ```
+    ```bash
     make setup-dev
     ```
 
@@ -35,7 +35,7 @@ Simple, pseudo-generic tooling for extracting user Info from LinkedIn profiles, 
     > Move the downloaded file to `~/.config/gspread/service_account.json`. Windows users should put this file to `%APPDATA%\gspread\service_account.json`.
 
 - Test that everything was successful by running the following in an interactive python window:
-    ```
+    ```python
     from gsheet.google_sheet_helpers import init_service_account
     init_service_account()
     ```
