@@ -1,4 +1,4 @@
-# Rugby Alumni
+# Rugby Alumni LinkedIn Scraper
 
 Simple, pseudo-generic tooling for extracting user Info from LinkedIn profiles, and posting that data to Google Sheets. 
 
