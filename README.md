@@ -42,6 +42,21 @@ Simple, pseudo-generic tooling for extracting user Info from LinkedIn profiles, 
     
     NOTE: I really don't like this method, and we should find a way to use a standard env variable so we can maybe use Github actions or something. 
 
+## Setup LinkedIn account credentials
+
+This repo relies on LinkedIn credentials (email and password) stored in environment variables to make requests against the LinkedIn API/server. I have created an empty/new account specifically for this so that we don't use our real accounts, reach out to me (Sean McClure) for the credentials.
+
+### Setting environment variables.
+
+To set the environment variables such that the code can access them, on Mac or Linux, run: 
+
+```bash
+export LINKEDIN_USER="{email address here}"
+export LINKEDIN_PASS="{password here}"
+```
+
+These variables are then accessed by the Alum class.
+
 ## Usage
 
 The main usage at the moment is to update a [google sheet](https://docs.google.com/spreadsheets/d/1L4G0mM_iti_H5burWq22g4v4jMZW-4LhX8BvnH5o_WI/edit#gid=0) with personal data from LinkedIn profiles. 
