@@ -46,7 +46,7 @@ Simple, pseudo-generic tooling for extracting user Info from LinkedIn profiles, 
 
 This repo relies on LinkedIn credentials (email and password) stored in environment variables to make requests against the LinkedIn API/server. I have created an empty/new account specifically for this so that we don't use our real accounts, reach out to me (Sean McClure) for the credentials.
 
-### Setting environment variables.
+### Setting environment variables
 
 To set the environment variables such that the code can access them, on Mac or Linux, run: 
 
