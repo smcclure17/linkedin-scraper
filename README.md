@@ -40,7 +40,7 @@ Simple, pseudo-generic tooling for extracting user Info from LinkedIn profiles, 
     init_service_account()
     ```
     
-    NOTE: I really don't like this method, and we should find a way to use a standard env variable so we can maybe use Github actions or something. 
+    NOTE: I really don't like this method, and we should find a way to use a standard env variable or something.
 
 ## Setup LinkedIn account credentials
 

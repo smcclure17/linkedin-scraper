@@ -2,6 +2,8 @@ from dataclasses import dataclass
 from functools import lru_cache
 from typing import Any, Dict, List, Set, Union
 
+import requests
+
 from libs.linkedin_client import LinkedInClient
 from libs import utils
 
@@ -29,13 +31,16 @@ class Alum:
 
     @classmethod
     def from_id(self, id: str) -> "Alum":
+        """Create an Alum instance from a user's linkedIn profile ID."""
+
         # I envisioned these being class properties but dataclasses.asdict()
         # does not recognize properties for serialization :(
         url = f"https://linkedin.com/in/{id}"
         payload = _make_user_request(user_id=id)
         profile: Dict = payload["profile"]
         education: Dict = payload["educationView"]
-        employment: Dict = payload["positionGroupView"]
+        employment: List[Dict] = payload["positionGroupView"]["elements"]
+        employment: Dict = employment[0] if len(employment) != 0 else {}
 
         # An alum should always have Wheaton in their education, but if not handle that here
         try:
@@ -47,23 +52,26 @@ class Alum:
         except KeyError:
             wheaton: Dict = {}
 
-        # Probably need to error check that all these nests actually exist
+        positions = employment.get("positions")
+        title = positions[0]["title"] if positions is not None else None
+
         return Alum(
             id=id,
             url=url,
-            name=f"{profile['firstName']} {profile['lastName']}",
+            name=f"{profile.get('firstName')} {profile.get('lastName')}",
             industry=profile.get("industryName"),
             location=profile.get("geoLocationName"),
-            company=employment["elements"][0]["name"],
-            title=employment["elements"][0]["positions"][0]["title"],
+            company=employment.get("name"),
+            title=title,
             graduation_year=wheaton.get("timePeriod")
             .get("endDate")
             .get("year"),  # God I hate this syntax
-            major=wheaton["fieldOfStudy"],
+            major=wheaton.get("fieldOfStudy"),
         )
 
     @classmethod
     def from_url(self, url: str) -> "Alum":
+        """Create an Alum instance from a user's linkedIn profile url."""
         # Light assumption that url is sanitary, e.g.
         # https://www.linkedin.com/in/user-id-123/
         id = url.split("linkedin.com/in/")[1].replace("/", "")
@@ -75,7 +83,10 @@ def _make_user_request(user_id: str, client=None) -> Set[Dict[str, Any]]:
     if client is None:
         client = LinkedInClient.from_user(username=USERNAME, password=PASSWORD)
 
-    return client.session.get(
+    response: requests.Response = client.session.get(
         f"https://www.linkedin.com/voyager/api/identity/profiles/{user_id}/profileView",
         headers=LinkedInClient.REQUEST_HEADERS,
-    ).json()
+    )
+    response.raise_for_status()
+
+    return response.json()
