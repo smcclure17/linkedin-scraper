@@ -30,7 +30,7 @@ Simple, pseudo-generic tooling for extracting user Info from LinkedIn profiles, 
 ### Setup gsheet service account credentials 
 
 - Ask Sean (McClure) for a copy of the ghseet service account key
-- Folow the step 7 in the [Gsheet package documentation]() to put the account key in the correct location such that the library can access it: 
+- Folow the step 7 in the [gspread package documentation](https://docs.gspread.org/en/latest/oauth2.html#for-bots-using-service-account) to put the account key in the correct location such that the library can access it: 
 
     > Move the downloaded file to `~/.config/gspread/service_account.json`. Windows users should put this file to `%APPDATA%\gspread\service_account.json`.
 
@@ -55,7 +55,7 @@ export LINKEDIN_USER="{email address here}"
 export LINKEDIN_PASS="{password here}"
 ```
 
-These variables are then accessed by the Alum class.
+These variables are then [accessed by the Alum class](https://github.com/smcclure17/linkedin-scraper/blob/main/libs/alum.py#L11).
 
 ## Usage
 
