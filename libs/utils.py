@@ -10,6 +10,7 @@ def get_env_variable(variable_name: str):
     variable = os.environ.get(variable_name, None)
     if variable is None:
         raise EnvironmentException(
-            "Cannot find variable. Run 'printenv' in terminal to check if variable exists."
+            f"Cannot find variable {variable_name}."
+            "Run 'printenv' in terminal to check if variable exists."
         )
     return variable

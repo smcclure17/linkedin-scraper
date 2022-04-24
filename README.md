@@ -55,6 +55,8 @@ export LINKEDIN_USER="{email address here}"
 export LINKEDIN_PASS="{password here}"
 ```
 
+Note that this will only store the variables for the current terminal session. These will need to be reinitialized each time you open/close the terminal. To make these permanent, you will need to add them to either your `~/.zshrc` or `~/.bash_profile`. 
+
 These variables are then [accessed by the Alum class](https://github.com/smcclure17/linkedin-scraper/blob/main/libs/alum.py#L11).
 
 ## Usage

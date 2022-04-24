@@ -1,6 +1,8 @@
 from typing import Any, Dict
 import requests
 
+import logging
+logging.basicConfig(level=logging.INFO)  # Display all logs
 
 # With heavy inspiration from https://github.com/tomquirk/linkedin-api
 class LinkedInClient:
@@ -61,6 +63,8 @@ class LinkedInClient:
             cookies=self.session.cookies,
             headers=self.AUTH_REQUEST_HEADERS,
         )
+
+        logging.info(f"authenticated user with status code {res.status_code}")
         res.raise_for_status()
         self._set_cookies(res.cookies)
 

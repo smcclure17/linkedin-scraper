@@ -3,6 +3,7 @@ from functools import cached_property
 from typing import List, Union
 import pandas as pd
 from libs.alum import Alum
+import pathlib
 
 from gsheet import google_sheet_helpers
 
@@ -20,16 +21,22 @@ class Alumni:
         return Alumni(alumni=alumni)
 
     @classmethod
-    def from_urls_csv(self, file_path: str) -> "Alumni":
+    def from_urls_csv(self, file_path: Union[str, pathlib.Path]) -> "Alumni":
         """Update spreadsheet from a csv of urls.
 
-        Csv must be one-column, newline seperated, and headerless like:
+        Csv must be a one-column, newline-seperated, and headerless file like:
             https://www.linkedin.com/abc/
             https://www.linkedin.com/def/
             https://www.linkedin.com/xyz/
         because I am lazy at the moment.
         """
-        urls = list(pd.read_csv(file_path, header=None).stack().values)
+        file_path = (
+            pathlib.Path(file_path)
+            if not isinstance(file_path, pathlib.Path)
+            else file_path
+        )
+        urls = file_path.read_text().splitlines()
+        urls = [url for url in urls if url != ""]  # Remove empty lines
         return Alumni.from_urls_list(urls=urls)
 
     @cached_property

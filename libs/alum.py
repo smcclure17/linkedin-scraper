@@ -7,9 +7,12 @@ import requests
 from libs.linkedin_client import LinkedInClient
 from libs import utils
 
+import logging
+logging.basicConfig(level=logging.INFO)  # Display all logs
+
 # Retrive LinkedIn account info from local system environment.
-# TODO: Make this optional? Pass args through invoke task? 
-# idk, but I don't like this
+# TODO: Make this optional? Pass args through invoke task?
+# idk, but I don't like this being the only option.
 USERNAME = utils.get_env_variable("LINKEDIN_USER")
 PASSWORD = utils.get_env_variable("LINKEDIN_PASS")
 
@@ -88,5 +91,6 @@ def _make_user_request(user_id: str, client=None) -> Set[Dict[str, Any]]:
         headers=LinkedInClient.REQUEST_HEADERS,
     )
     response.raise_for_status()
+    logging.info(f"Fetched user id {user_id} with status code {response.status_code}")
 
     return response.json()
